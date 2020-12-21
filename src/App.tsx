@@ -30,9 +30,8 @@ function App() {
   const generateTimeline = () => {
     setLoading(true);
     setHasError(false);
-    console.log("username", username);
 
-    fetch(`http://localhost:8000/users/${username}/repos`)
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/users/${username}/repos`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -93,8 +92,8 @@ function App() {
           <Typography color="error">{errorMessage}</Typography>
         ) : (
           <Grid container direction="column" spacing={2} justify="space-evenly">
-            {repos.map((repo) => (
-              <Grid item key={repo.name}>
+            {repos.map((repo, index) => (
+              <Grid item key={index}>
                 <Paper>
                   <Typography>{repo.name}</Typography>
                   <Typography>{repo.description}</Typography>
