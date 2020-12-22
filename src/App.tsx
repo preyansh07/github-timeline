@@ -6,13 +6,13 @@ import {
   TextField,
   Button,
   Grid,
-  Paper,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
 
 import "./App.css";
 import { UserReposResponse, Repo, ErrorResponse } from "./types";
+import LoadingScreen from "./components/LoadingScreen";
+import RepoTimeline from "./components/RepoTimeline";
 
 const useStyles = makeStyles({
   input: {
@@ -91,46 +91,20 @@ function App() {
         ) : hasError ? (
           <Typography color="error">{errorMessage}</Typography>
         ) : (
-          <Grid container direction="column" spacing={2} justify="space-evenly">
-            {repos.map((repo, index) => (
-              <Grid item key={index}>
-                <Paper>
-                  <Typography>{repo.name}</Typography>
-                  <Typography>{repo.description}</Typography>
-                  <Typography>{repo.createdAt}</Typography>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
+          // <Grid container direction="column" spacing={2} justify="space-evenly">
+          //   {repos.map((repo, index) => (
+          //     <Grid item key={index}>
+          //       <Paper>
+          //         <Typography>{repo.name}</Typography>
+          //         <Typography>{repo.description}</Typography>
+          //         <Typography>{repo.createdAt}</Typography>
+          //       </Paper>
+          //     </Grid>
+          //   ))}
+          // </Grid>
+          <RepoTimeline repos={repos}></RepoTimeline>
         )}
       </Container>
-    </>
-  );
-}
-
-function LoadingScreen() {
-  return (
-    <>
-      <Grid container spacing={1} justify="space-evenly">
-        <Grid item>
-          <Skeleton variant="text" height={30} />
-          <Skeleton variant="rect" width={200} height={118} />
-        </Grid>
-        <Grid item>
-          <Skeleton variant="text" height={30} />
-          <Skeleton variant="rect" width={200} height={118} />
-        </Grid>
-      </Grid>
-      <Grid container spacing={1} justify="space-evenly">
-        <Grid item>
-          <Skeleton variant="text" height={30} />
-          <Skeleton variant="rect" width={200} height={118} />
-        </Grid>
-        <Grid item>
-          <Skeleton variant="text" height={30} />
-          <Skeleton variant="rect" width={200} height={118} />
-        </Grid>
-      </Grid>
     </>
   );
 }
